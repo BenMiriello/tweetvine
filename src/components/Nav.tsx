@@ -145,7 +145,7 @@ export default function Nav() {
           </Link>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.link} >
-              Home
+              Tweetvine
             </Link>
           </Typography>
           <div className={classes.rightButtonContainer}>
