@@ -17,9 +17,9 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "concurrently npm:server npm:dev",
-    "dev": "react-scripts start",
-    "server": "node server.js && npm start",
+    "start": "concurrently npm:server npm:start-react",
+    "start-react": "react-scripts start",
+    "server": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -56,6 +56,5 @@
     "eslint": "^6.6.0",
     "prettier": "^2.0.5",
     "react-app-rewired": "^2.1.6"
-  },
-  "proxy": "http://localhost:8080"
+  }
 }
