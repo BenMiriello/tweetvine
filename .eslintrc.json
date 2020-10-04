@@ -29,5 +29,6 @@
         "patterns": ["@material-ui/*/*/*", "!@material-ui/core/test-utils/*"]
       }
     ]
-  }
+  },
+  "indent": ["warn", "tab"],
 }
