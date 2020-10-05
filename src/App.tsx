@@ -5,6 +5,8 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import theme from './styles/theme';
 
+import './tailwind.output.css';
+
 import AppStateProvider from './state';
 import Nav from './components/Nav';
 import HomePage from './components/HomePage';
@@ -33,4 +35,4 @@ export default function App() {
       </AppStateProvider>
     </MuiThemeProvider>
   )
-}
+};

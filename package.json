@@ -1,5 +1,5 @@
 {
-  "name": "tweetvine",
+  "name": "TVN",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,11 +12,15 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "tailwindcss": "^1.8.10",
     "twilio": "^3.47.0",
     "twilio-video": "^2.6.0",
     "typescript": "~3.7.2"
   },
   "scripts": {
+    "build:tailwind": "tailwindcss build src/tailwind.css -o src/tailwind.output.css",
+    "prestart": "npm run build:tailwind",
+    "prebuild": "npm run build:tailwind",
     "start": "concurrently npm:server npm:start-react",
     "start-react": "react-scripts start",
     "server": "node server.js",
