@@ -1,3 +1,3 @@
-const devApi = 'http://api.localhost:3001/v1/';
-const prodApi = 'https://tweetvine.herokuapp.com/';
+const devApi = 'http://api.localhost:3001/v2/';
+const prodApi = 'https://biblio.herokuapp.com/';
 export const apiRoot = process.env.NODE_ENV === 'development' ? devApi : prodApi;

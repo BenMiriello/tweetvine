@@ -18,7 +18,7 @@ export interface AppStateContextType {
   logout: () => void;
   deleteAccount: () => void;
   error: Error | null;
-  setError: Dispatch<SetStateAction<Error | null>>;
+  setError: (error: Error) => void; // Dispatch<SetStateAction<Error | null>>;
 };
 
 export const AppStateContext = createContext<AppStateContextType>(null!);
@@ -26,23 +26,31 @@ export const AppStateContext = createContext<AppStateContextType>(null!);
 export default function AppStateProvider(props: { children: ReactNode }) {
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
-  const [error, setError] = useState<Error | null>(null);
+  const [error, _setError] = useState<Error | null>(null);
 
-  const handleFetch = async (endpoint?: string, method: string = 'GET', data?: FetchBody) => {
-    if (data) {
-      setLoading(true);
-      fetchApi(endpoint, method, data)
-        .then(r => r.json())
-        .then(r => {
-          console.log(r);
-          setUser(r.user || null);
-          r.errors && setError(r.errors);
-        })
-        .catch(setError);
-      setLoading(false);
-    } else {
-      fetchApi(endpoint, method);
-      if (endpoint === 'logout' || 'delete_account') setUser(null);
+  const setError = (error: Error | null) => {
+    if (error) {
+      console.log(error);
+      _setError(error);
+    };
+  };
+
+  const handleFetch = async (endpoint: string, method: string = 'GET', data?: FetchBody) => {
+    const storedToken = localStorage.getItem('jwt') || null;
+    setLoading(true);
+    fetchApi(endpoint, method, storedToken, data || null)
+      .then(r => r.json())
+      .then(r => {
+        setUser(r.user || null);
+        r.user && r.jwt && localStorage.setItem('jwt', r.jwt);
+        r.errors && setError(r.errors);
+      })
+      .catch(setError);
+    setLoading(false);
+
+    if (endpoint === ('logout' || 'delete_account')) {
+      setUser(null);
+      localStorage.clear();
     };
   };
 
