@@ -30,5 +30,5 @@
       }
     ]
   },
-  "indent": ["warn", "tab"],
+  "indent": ["warn", "tab"]
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAppState } from '../../state';
@@ -12,7 +12,7 @@ export default function ChangePassword() {
   const [newPasswordConfirmation, setNewPasswordConfirmation] = useState<string>('');
   const [matchError, setMatchError] = useState<boolean>(false);
 
-  const handleChangePassword = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChangePassword = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (newPassword === newPasswordConfirmation) {
       changePassword({ old_password: oldPassword, new_password: newPassword });
