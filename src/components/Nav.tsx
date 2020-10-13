@@ -6,8 +6,8 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Menu, MenuItem, Button, IconButton, Typography } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-
 import { useAppState } from '../state';
+import { appName } from '../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -145,7 +145,7 @@ export default function Nav() {
           </Link>
           <Typography variant="h6" className={classes.title}>
             <Link to="/" className={classes.link} >
-              Biblio
+              { appName }
             </Link>
           </Typography>
           <div className={classes.rightButtonContainer}>

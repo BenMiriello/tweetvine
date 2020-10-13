@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import Nav from './Nav';
 import { useAppState } from '../state';
+import { appName } from '../constants';
 
 export default function HomePage() {
   const history = useHistory();
@@ -34,7 +35,7 @@ export default function HomePage() {
           <div className="flex justify-center">
             <div className="max-w-md">
               <p className="text-3xl font-bold mt-4 mb-8">See what's happening in the world right now</p>
-              <p className="text-lg font-bold">Join Twitter today.</p>
+              <p className="text-lg font-bold">Join { appName } today.</p>
               <div className="w-full flex flex-col flex-wrap justify-center">
                 <button className="my-4 h-10 bg-blue-500 rounded-full font-bold" onClick={() => history.push('/signup')}>Sign up</button>
                 <button className="mb-2 h-10 border-2 border-blue-500 rounded-full text-blue-300 font-bold" onClick={() => history.push('/login')}>Login</button>
