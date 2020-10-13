@@ -8,7 +8,6 @@ import theme from './styles/theme';
 import './tailwind.output.css';
 
 import AppStateProvider from './state';
-import Nav from './components/Nav';
 import HomePage from './components/HomePage';
 import SignupPage from './components/SignupPage';
 import SignInPage from './components/SignInPage';
@@ -22,7 +21,6 @@ export default function App() {
       <CssBaseline />
       <AppStateProvider>
         <BrowserRouter>
-          <Nav />
           <Switch>
             <Route path="/" component={HomePage} exact />
             <Route path="/dashboard" component={Dashboard} exact />
