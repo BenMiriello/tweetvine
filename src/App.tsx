@@ -32,5 +32,5 @@ export default function App() {
         </BrowserRouter>
       </AppStateProvider>
     </MuiThemeProvider>
-  )
-};
+  );
+}
