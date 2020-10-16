@@ -10,7 +10,10 @@ export default function HomePage() {
   return user ? <SplashPage /> : (
     <Page>
       <div className="w-1/4 bg-blue-100">
-        <p className="">Home</p>
+        <p>Home</p>
+        <p>Messages</p>
+        <p>Profile</p>
+        <p>Tweet</p>
       </div>
       <div className="w-1/2 bg-white"></div>
       <div className="w-1/4 bg-blue-100"></div>
