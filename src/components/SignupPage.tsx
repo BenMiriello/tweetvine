@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button, Typography } from '@material-ui/core';
 
 import { useAppState } from '../state';
-import Nav from './Nav';
 
 const useStyles = makeStyles({
   title: {
@@ -38,43 +37,40 @@ export default function SignupPage() {
   if (loading) return <div>Creating Your Account</div>;
 
   return (
-    <>
-      <Nav />
-      <form onSubmit={handleSubmit}>
-        <Grid container alignItems="center" direction="column">
-          <Typography variant="h5" align="center" className={classes.title}>
-            Sign Up
-          </Typography>
-          <TextField
-            type="email"
-            placeholder="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></TextField>
-          <TextField 
-            placeholder="name"
-            name="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          ></TextField>
-          <TextField
-            type="password"
-            placeholder="password"
-            name="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></TextField>
-          <Button
-            variant="contained"
-            className={classes.submit}
-            type="submit"
-            disabled={!password.length || !email.length || !name.length}
-          >
-            Submit
-          </Button>
-        </Grid>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <Grid container alignItems="center" direction="column">
+        <Typography variant="h5" align="center" className={classes.title}>
+          Sign Up
+        </Typography>
+        <TextField
+          type="email"
+          placeholder="email"
+          name="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></TextField>
+        <TextField 
+          placeholder="name"
+          name="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        ></TextField>
+        <TextField
+          type="password"
+          placeholder="password"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></TextField>
+        <Button
+          variant="contained"
+          className={classes.submit}
+          type="submit"
+          disabled={!password.length || !email.length || !name.length}
+        >
+          Submit
+        </Button>
+      </Grid>
+    </form>
   );
 }

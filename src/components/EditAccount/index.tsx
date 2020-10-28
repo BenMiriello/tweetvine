@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { useAppState } from '../../state';
-import Nav from '../Nav';
 import ChangeName from './ChangeName';
 import ChangePassword from './ChangePassword';
 import ChangeEmail from './ChangeEmail';
@@ -19,13 +18,10 @@ export default function EditAccount() {
 
   return (
     <>
-      <Nav />
-      <div>
-        <ChangeEmail />
-        <ChangeName />
-        <ChangePassword />
-        <DeleteAccount/>
-      </div>
+      <ChangeEmail />
+      <ChangeName />
+      <ChangePassword />
+      <DeleteAccount/>
     </>
   );
 }

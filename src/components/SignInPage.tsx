@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button, Typography } from '@material-ui/core';
 
 import { useAppState } from '../state';
-import Nav from './Nav';
 
 const useStyles = makeStyles({
   title: {
@@ -37,25 +36,22 @@ export default function SignInPage() {
   if (loading) return <div>Signing In</div>;
 
   return (
-    <>
-      <Nav />
-      <form onSubmit={handleSubmit}>
-        <Grid container alignItems="center" direction="column">
-          <Typography variant="h5" align="center" className={classes.title}>
-            Sign In
-          </Typography>
-          <TextField label="email" value={email} onChange={e => setEmail(e.target.value)} />
-          <TextField label="password" value={password} onChange={e => setPassword(e.target.value)} />
-          <Button
-            variant="contained"
-            className={classes.submit}
-            type="submit"
-            disabled={!password.length || !email.length}
-          >
-            Submit
-          </Button>
-        </Grid>
-      </form>
-    </>
+    <form onSubmit={handleSubmit}>
+      <Grid container alignItems="center" direction="column">
+        <Typography variant="h5" align="center" className={classes.title}>
+          Sign In
+        </Typography>
+        <TextField label="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <TextField label="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <Button
+          variant="contained"
+          className={classes.submit}
+          type="submit"
+          disabled={!password.length || !email.length}
+        >
+          Submit
+        </Button>
+      </Grid>
+    </form>
   );
 }

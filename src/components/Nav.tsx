@@ -74,7 +74,7 @@ export default function Nav() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  useEffect(() => checkLoggedIn(), []);
+  // useEffect(() => checkLoggedIn(), []);
 
   const handleLogout = () => { logout(); history.push('/') };
 
