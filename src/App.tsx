@@ -14,7 +14,6 @@ import SignInPage from './components/SignInPage';
 import UserPage from './components/UserPage';
 import EditAccount from './components/EditAccount';
 import Dashboard from './components/Dashboard';
-import Nav from './components/Nav';
 
 export default function App() {
   return (
