@@ -7,7 +7,7 @@ import ChangeEmail from './ChangeEmail';
 import DeleteAccount from './DeleteAccount';
 
 const EditAccount = () => (
-  <Page nav>
+  <Page>
     <ChangeEmail />
     <ChangeName />
     <ChangePassword />

@@ -8,7 +8,7 @@ export default function HomePage() {
   const { user } = useAppState();
 
   return user ? (
-    <Page nav>
+    <Page>
       <div className="w-1/4 bg-blue-100 text-center flex justify-center">
         <div className="w-12 flex flex-col justify-center">
           <p className="text-black text-left my-2 text-xl">Home</p>

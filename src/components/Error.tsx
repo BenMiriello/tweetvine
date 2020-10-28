@@ -1,12 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useAppState from '../state';
 
 export default function Error() {
   const { errors, setErrors } = useAppState();
 
-  const handleXClick = () => setErrors([]);
-  
-  useEffect(() => { console.log(errors[0]?.message, ' message from error component') }, [errors]);
+  const handleXClick = () => setErrors(errors.slice(1));
 
   return errors?.length ? (
     <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-50 flex flex-col items-center justify-center" style={{zIndex:1}}>
