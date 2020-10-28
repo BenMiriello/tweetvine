@@ -1,11 +1,13 @@
-import React, { ReactNodeArray } from 'react';
+import React, { ReactNode, ReactNodeArray } from 'react';
 import Nav from './Nav';
 
-export default function Page(props: {children: ReactNodeArray}) {
+export default function Page(props: {children: ReactNode | ReactNodeArray}) {
   return (
-    <div className="h-screen flex flex-col">
-      <Nav />  
-      {props.children}
+    <div className="h-screen w-screen flex flex-col">
+      <Nav />
+      <div className="flex h-screen">
+        {props.children}
+      </div>
     </div>
   );
 }
