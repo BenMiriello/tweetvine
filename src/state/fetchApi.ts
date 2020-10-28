@@ -1,14 +1,21 @@
+import { Dispatch, SetStateAction } from 'react';
+
+import { UserType, FetchBody } from '../types';
+
 import { apiRoot } from '../constants';
 
-export interface Login { email: string; password: string; };
-export interface Account { email: string; name: string; password: string;};
-export interface ChangeEmail { new_email: string; password: string;};
-export interface ChangeName { new_name: string; password: string;};
-export interface ChangePassword { old_password: string; new_password: string;};
+const fetchApi = (
+  endpoint: string,
+  method: string = 'GET',
+  data: FetchBody | null,
+  setUser: Dispatch<SetStateAction<UserType | null>>,
+  setLoading: Dispatch<SetStateAction<boolean>>,
+  setErrors: Dispatch<SetStateAction<Error[]>>,
+) => {
+  const storedToken = localStorage.getItem('jwt') || null;
 
-export type FetchBody = Account | Login | ChangeEmail | ChangeName | ChangePassword;
+  data && setLoading(true);
 
-const fetchApi = (endpoint: string, method: string = 'GET', storedToken: string | null, data: FetchBody | null) => (
   fetch(apiRoot + endpoint, {
     method: method,
     headers: {
@@ -18,6 +25,15 @@ const fetchApi = (endpoint: string, method: string = 'GET', storedToken: string 
     credentials: 'include',
     ...data && {body: JSON.stringify({ user: data })},
   })
-);
+  .then(res => res.json())
+  .then(r => {
+    setUser(r.user || null);
+    r.user && r.jwt ? localStorage.setItem('jwt', r.jwt) : localStorage.clear();
+    data && r.errors && setErrors(r.errors.map((err: string) => new Error(err)));
+  })
+  .catch(errors => setErrors(errors.map((err: string) => new Error(err))));
+
+  data && setLoading(false);
+};
 
 export default fetchApi;

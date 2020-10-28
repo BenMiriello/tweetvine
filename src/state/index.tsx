@@ -1,25 +1,8 @@
-import React, { useEffect, createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, createContext, useContext, useState, ReactNode } from 'react';
 
-import fetchApi, { Account, Login, ChangeEmail, ChangeName, ChangePassword, FetchBody } from './fetchApi';
-
-export interface UserType { name: string; email: string; };
-
-export interface AppStateContextType {
-  loading: boolean;
-  setLoading: Dispatch<SetStateAction<boolean>>;
-  user: UserType | null;
-  setUser: Dispatch<SetStateAction<UserType | null>>;
-  signup: (data: Account) => void;
-  login: (data: Login) => void;
-  checkLoggedIn: () => void;
-  changeEmail: (data: ChangeEmail) => void;
-  changeName: (data: ChangeName) => void;
-  changePassword: (data: ChangePassword) => void;
-  logout: () => void;
-  deleteAccount: () => void;
-  errors: Array<Error>;
-  setErrors: (error: Array<Error>) => void;
-};
+import fetchApi from './fetchApi';
+import { UserType, AppStateContextType, FetchBody } from '../types';
+import { Account, Login, ChangeEmail, ChangeName, ChangePassword } from '../types';
 
 export const AppStateContext = createContext<AppStateContextType>(null!);
 
@@ -28,49 +11,30 @@ export const AppStateProvider = (props: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [errors, setErrors] = useState<Array<Error>>([]);
 
-  useEffect(() => {handleFetch('check_logged_in')}, []);
+  useEffect(() => {handleFetch('check_logged_in')});
 
   const handleFetch = async (endpoint: string, method: string = 'GET', data?: FetchBody) => {
-    const storedToken = localStorage.getItem('jwt') || null;
-    localStorage.clear();
-    setLoading(true);
-    fetchApi(endpoint, method, storedToken, data || null)
-      .then(r => r.json())
-      .then(r => {
-        // console.log(r.errors, ' from state');
-        setUser(r.user || null);
-        r.user && r.jwt && localStorage.setItem('jwt', r.jwt);
-        r.errors && setErrors(r.errors.map((err: string) => new Error(err)));
-        // r.errors && console.log(r.errors, ' from state');
-        errors && console.log(errors, ' from state');
-      })
-      .catch(setErrors);
-    setLoading(false);
-
-    if (endpoint === ('logout' || 'delete_account')) {
-      setUser(null);
-      localStorage.clear();
-    };
+    fetchApi(endpoint, method, data || null, setUser, setLoading, setErrors)
   };
 
   const contextValue: AppStateContextType = {
-    loading,
-    setLoading,
     user,
     setUser,
+    loading,
+    setLoading,
+    errors,
+    setErrors,
     signup: (data: Account) => handleFetch('signup', 'POST', data),
     login: (data: Login) => handleFetch('login', 'POST', data),
-    checkLoggedIn: () => handleFetch('check_logged_in'),
     changeName: (data: ChangeName) => handleFetch('change_name', 'PATCH', data),
     changeEmail: (data: ChangeEmail) => handleFetch('change_email', 'PATCH', data),
     changePassword: (data: ChangePassword) => handleFetch('change_password', 'PATCH', data),
-    logout: () => { handleFetch('logout', 'DELETE'); setUser(null) },
-    deleteAccount: () => { handleFetch('delete_account', 'DELETE'); setUser(null) },
-    errors,
-    setErrors,
+    checkLoggedIn: () => handleFetch('check_logged_in'),
+    logout: () => { setUser(null); localStorage.clear(); },
+    deleteAccount: () => handleFetch('delete_account', 'DELETE'),
   };
 
   return <AppStateContext.Provider value={contextValue}>{props.children}</AppStateContext.Provider>;
 };
 
-export default () => useContext(AppStateContext); // useAppState
+export default () => useContext(AppStateContext); /* useAppState */

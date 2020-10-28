@@ -40,7 +40,7 @@ export default function SignupPage() {
 
   return (
     <Page>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mx-auto">
         <Grid container alignItems="center" direction="column">
           <Typography variant="h5" align="center" className={classes.title}>
             Sign Up
