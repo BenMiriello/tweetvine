@@ -5,7 +5,7 @@ import useAppState from '../../state';
 
 export default function ChangePassword() {
   const history = useHistory();
-  const { changePassword, loading, setError } =useAppState();
+  const { changePassword, loading, setErrors } = useAppState();
 
   const [oldPassword, setOldPassword] = useState<string>('');
   const [newPassword, setNewPassword] = useState<string>('');
@@ -18,7 +18,7 @@ export default function ChangePassword() {
       changePassword({ old_password: oldPassword, new_password: newPassword });
       history.push('/account');
     } else {
-      setError(new Error("Your new passwords don't match."));
+      setErrors([new Error("Your new passwords don't match.")]);
       setOldPassword('');
       setNewPassword('');
       setNewPasswordConfirmation('');

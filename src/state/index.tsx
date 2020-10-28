@@ -17,8 +17,8 @@ export interface AppStateContextType {
   changePassword: (data: ChangePassword) => void;
   logout: () => void;
   deleteAccount: () => void;
-  error: Error | null;
-  setError: (error: Error) => void; // Dispatch<SetStateAction<Error | null>>;
+  errors: Array<Error> | null;
+  setErrors: (errors: Array<Error>) => void; // Dispatch<SetStateAction<Error | null>>;
 };
 
 export const AppStateContext = createContext<AppStateContextType>(null!);
@@ -26,14 +26,14 @@ export const AppStateContext = createContext<AppStateContextType>(null!);
 export const AppStateProvider = (props: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
-  const [error, _setError] = useState<Error | null>(null);
+  const [errors, _setErrors] = useState<Array<Error> | null>(null);
 
   useEffect(() => {handleFetch('check_logged_in')}, []);
 
-  const setError = (error: Error | null) => {
+  const setErrors = (error: Array<Error> | null) => {
     if (error) {
       console.log(error);
-      _setError(error);
+      _setErrors(error);
     };
   };
 
@@ -45,9 +45,9 @@ export const AppStateProvider = (props: { children: ReactNode }) => {
       .then(r => {
         setUser(r.user || null);
         r.user && r.jwt && localStorage.setItem('jwt', r.jwt);
-        r.errors && setError(r.errors);
+        r.errors && setErrors(r.errors);
       })
-      .catch(setError);
+      .catch(setErrors);
     setLoading(false);
 
     if (endpoint === ('logout' || 'delete_account')) {
@@ -69,8 +69,8 @@ export const AppStateProvider = (props: { children: ReactNode }) => {
     changePassword: (data: ChangePassword) => handleFetch('change_password', 'PATCH', data),
     logout: () => { handleFetch('logout', 'DELETE'); setUser(null) },
     deleteAccount: () => { handleFetch('delete_account', 'DELETE'); setUser(null) },
-    error,
-    setError,
+    errors,
+    setErrors,
   };
 
   return <AppStateContext.Provider value={contextValue}>{props.children}</AppStateContext.Provider>;

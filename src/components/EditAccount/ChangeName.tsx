@@ -5,7 +5,7 @@ import useAppState from '../../state';
 
 export default function ChangeName() {
   const history = useHistory();
-  const { user, changeName, loading, setError } = useAppState();
+  const { user, changeName, loading, setErrors } = useAppState();
 
   const [newName, setNewName] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -19,7 +19,7 @@ export default function ChangeName() {
       setNewName('');
       history.push('/account');
     } else {
-      setError(new Error("The new name you entered is the same as your existing name."));
+      setErrors([new Error("The new name you entered is the same as your existing name.")]);
     }
   };
 

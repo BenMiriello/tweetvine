@@ -22,7 +22,7 @@ const useStyles = makeStyles({
 export default function SignupPage() {
   const classes = useStyles();
   const history = useHistory();
-  const { signup, loading } = useAppState();
+  const { signup, loading, user } = useAppState();
 
   const [email, setEmail] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -30,8 +30,8 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    signup({ email, name, password });
-    history.push('/');
+    await signup({ email, name, password });
+    user && history.push('/');
   };
 
   if (loading) return <div>Creating Your Account</div>;
