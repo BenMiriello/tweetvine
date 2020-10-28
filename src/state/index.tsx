@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
+import React, { useEffect, createContext, useContext, useState, ReactNode, Dispatch, SetStateAction } from 'react';
 
 import fetchApi, { Account, Login, ChangeEmail, ChangeName, ChangePassword, FetchBody } from './fetchApi';
 
@@ -23,10 +23,12 @@ export interface AppStateContextType {
 
 export const AppStateContext = createContext<AppStateContextType>(null!);
 
-export default function AppStateProvider(props: { children: ReactNode }) {
+export const AppStateProvider = (props: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
   const [error, _setError] = useState<Error | null>(null);
+
+  useEffect(() => {handleFetch('check_logged_in')}, []);
 
   const setError = (error: Error | null) => {
     if (error) {
@@ -74,4 +76,4 @@ export default function AppStateProvider(props: { children: ReactNode }) {
   return <AppStateContext.Provider value={contextValue}>{props.children}</AppStateContext.Provider>;
 };
 
-export const useAppState = () => useContext(AppStateContext)
+export default () => useContext(AppStateContext); // useAppState

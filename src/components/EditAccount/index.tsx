@@ -1,27 +1,16 @@
-import React, { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
-
-import { useAppState } from '../../state';
+import React from 'react';
 import ChangeName from './ChangeName';
 import ChangePassword from './ChangePassword';
 import ChangeEmail from './ChangeEmail';
 import DeleteAccount from './DeleteAccount';
 
-export default function EditAccount() {
-  const { user, checkLoggedIn } = useAppState();
-  const history = useHistory();
+const EditAccount = () => (
+  <>
+    <ChangeEmail />
+    <ChangeName />
+    <ChangePassword />
+    <DeleteAccount/>
+  </>
+);
 
-  useEffect(() => {
-    if (user) checkLoggedIn();
-    else history.push('/');
-  }, []);
-
-  return (
-    <>
-      <ChangeEmail />
-      <ChangeName />
-      <ChangePassword />
-      <DeleteAccount/>
-    </>
-  );
-}
+export default EditAccount;

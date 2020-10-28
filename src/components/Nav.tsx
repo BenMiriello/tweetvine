@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
@@ -6,7 +6,7 @@ import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Menu, MenuItem, Button, IconButton, Typography } from '@material-ui/core';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import { useAppState } from '../state';
+import useAppState from '../state';
 import { appName } from '../constants';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -70,11 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function Nav() {
   const classes = useStyles();
   const history = useHistory();
-  const { user, checkLoggedIn, logout } = useAppState();
+  const { user, logout } = useAppState();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-
-  // useEffect(() => checkLoggedIn(), []);
 
   const handleLogout = () => { logout(); history.push('/') };
 

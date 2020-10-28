@@ -1,7 +1,7 @@
 import React, { ReactElement, useEffect } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 
-import { useAppState } from '../state';
+import useAppState from '../state';
 import Nav from './Nav';
 
 export default function UserPage(): ReactElement {

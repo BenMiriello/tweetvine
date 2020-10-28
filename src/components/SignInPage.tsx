@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, TextField, Button, Typography } from '@material-ui/core';
 
-import { useAppState } from '../state';
+import useAppState from '../state';
 
 const useStyles = makeStyles({
   title: {

@@ -7,7 +7,7 @@ import theme from './styles/theme';
 
 import './tailwind.output.css';
 
-import AppStateProvider from './state';
+import { AppStateProvider } from './state';
 import HomePage from './components/HomePage';
 import SignupPage from './components/SignupPage';
 import SignInPage from './components/SignInPage';

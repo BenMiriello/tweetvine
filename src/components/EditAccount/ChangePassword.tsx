@@ -1,7 +1,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useAppState } from '../../state';
+import useAppState from '../../state';
 
 export default function ChangePassword() {
   const history = useHistory();

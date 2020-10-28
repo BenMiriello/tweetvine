@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { useAppState } from '../../state';
+import useAppState from '../../state';
 
 export default function ChangeName() {
   const history = useHistory();

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { useAppState } from '../state';
+import useAppState from '../state';
 import Page from './Page';
 import SplashPage from './SplashPage';
 
