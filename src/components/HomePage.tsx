@@ -7,7 +7,7 @@ import SplashPage from './SplashPage';
 export default function HomePage() {
   const { user } = useAppState();
 
-  return user ? <SplashPage /> : (
+  return user ? (
     <Page nav>
       <div className="w-1/4 bg-blue-100 text-center flex justify-center">
         <div className="w-12 flex flex-col justify-center">
@@ -20,5 +20,5 @@ export default function HomePage() {
       <div className="w-1/2 bg-white"></div>
       <div className="w-1/4 bg-blue-100"></div>
     </Page>
-  );
+  ) : <SplashPage />;
 }

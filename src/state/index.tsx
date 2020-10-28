@@ -17,8 +17,8 @@ export interface AppStateContextType {
   changePassword: (data: ChangePassword) => void;
   logout: () => void;
   deleteAccount: () => void;
-  errors: Array<Error> | null;
-  setErrors: (errors: Array<Error>) => void; // Dispatch<SetStateAction<Error | null>>;
+  errors: Array<Error>;
+  setErrors: (error: Array<Error>) => void;
 };
 
 export const AppStateContext = createContext<AppStateContextType>(null!);
@@ -26,26 +26,23 @@ export const AppStateContext = createContext<AppStateContextType>(null!);
 export const AppStateProvider = (props: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [user, setUser] = useState<UserType | null>(null);
-  const [errors, _setErrors] = useState<Array<Error> | null>(null);
+  const [errors, setErrors] = useState<Array<Error>>([]);
 
   useEffect(() => {handleFetch('check_logged_in')}, []);
 
-  const setErrors = (error: Array<Error> | null) => {
-    if (error) {
-      console.log(error);
-      _setErrors(error);
-    };
-  };
-
   const handleFetch = async (endpoint: string, method: string = 'GET', data?: FetchBody) => {
     const storedToken = localStorage.getItem('jwt') || null;
+    localStorage.clear();
     setLoading(true);
     fetchApi(endpoint, method, storedToken, data || null)
       .then(r => r.json())
       .then(r => {
+        // console.log(r.errors, ' from state');
         setUser(r.user || null);
         r.user && r.jwt && localStorage.setItem('jwt', r.jwt);
-        r.errors && setErrors(r.errors);
+        r.errors && setErrors(r.errors.map((err: string) => new Error(err)));
+        // r.errors && console.log(r.errors, ' from state');
+        errors && console.log(errors, ' from state');
       })
       .catch(setErrors);
     setLoading(false);
