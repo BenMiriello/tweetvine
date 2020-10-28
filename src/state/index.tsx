@@ -11,11 +11,11 @@ export const AppStateProvider = (props: { children: ReactNode }) => {
   const [user, setUser] = useState<UserType | null>(null);
   const [errors, setErrors] = useState<Array<Error>>([]);
 
-  useEffect(() => {handleFetch('check_logged_in')});
-
   const handleFetch = async (endpoint: string, method: string = 'GET', data?: FetchBody) => {
     fetchApi(endpoint, method, data || null, setUser, setLoading, setErrors)
   };
+
+  useEffect(() => {handleFetch('check_logged_in')});
 
   const contextValue: AppStateContextType = {
     user,
