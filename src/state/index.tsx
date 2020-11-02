@@ -12,10 +12,24 @@ export const AppStateProvider = (props: { children: ReactNode }) => {
   const [errors, setErrors] = useState<Array<Error>>([]);
 
   const handleFetch = async (endpoint: string, method: string = 'GET', data?: FetchBody) => {
-    fetchApi(endpoint, method, data || null, setUser, setLoading, setErrors)
+    data && setLoading(true);
+
+    fetchApi(endpoint, method, data || null)
+    .then(res => res.json())
+    .then(r => {
+      setUser(r.user || null);
+      r.user && r.jwt ? localStorage.setItem('jwt', r.jwt) : localStorage.clear();
+      data && r.errors && setErrors(r.errors.map((err: string) => new Error(err)));
+    })
+
+    .catch(errors => {errors.filter((err: string) => (
+      typeof err === 'string')).map && setErrors(errors.map((err: string) => new Error(err)
+    ))});
+
+    data && setLoading(false);
   };
 
-  useEffect(() => {handleFetch('check_logged_in')});
+  useEffect(() => {handleFetch('check_logged_in')}, []);
 
   const contextValue: AppStateContextType = {
     user,
